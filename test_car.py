@@ -76,4 +76,3 @@ def test_miles_limit_change_with_drive(get_miles_to_drive, get_new_car, get_mile
     car.start_engine()
     car.drive(get_miles_to_drive)
     assert car.miles_limit == get_miles_limit - get_miles_to_drive
-
