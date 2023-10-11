@@ -1,6 +1,4 @@
 import pytest
-import random
-
 
 @pytest.mark.positive_case
 def test_engine_start(get_new_car):
