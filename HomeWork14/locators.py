@@ -1,0 +1,52 @@
+from selenium.webdriver import Chrome, ChromeOptions
+from selenium.webdriver.common.by import By
+
+
+def test_view():
+    _options = ChromeOptions()
+    driver = Chrome(options=_options)
+    driver.get('https://rezka.ag/')
+    driver.find_element(By.XPATH, '//*[@id="top-head"]')
+    driver.find_element(By.XPATH, '//*[@class="b-tophead__subscribe-dropdown-inner"]')
+    driver.find_element(By.XPATH, '//*[@class="glory"]/img')
+    driver.find_element(By.XPATH, '//*[@href="/cartoons/fantasy/"]')
+    driver.find_element(By.XPATH, '//*[@class="b-theme__switcher"]')
+    driver.find_element(By.XPATH, '//*[@data-id="82"]')
+    driver.find_element(By.XPATH, '//*[@class="b-content__main_filters_item"]/*[@href="https://rezka.ag/?filter=last"]')
+    driver.find_element(By.XPATH, '//*[@class="b-topnav__item i1"]/*[@class="b-topnav__item-link"]')
+    driver.find_element(By.XPATH, '//*[@class="b-topnav__item i2"]/*[@class="b-topnav__item-link"]')
+    driver.find_element(By.XPATH, '//*[@id="search-field"]')
+    driver.find_element(By.XPATH, '//*[@class="b-tophead__login"]')
+    driver.find_element(By.XPATH, '//*[@class="b-tophead__register"]')
+    driver.find_element(By.XPATH, '//*[@class="b-topnav__item single"][1]')
+    driver.find_element(By.XPATH, '//*[@class="b-topnav__item single"][2]')
+    driver.find_element(By.XPATH, '//*[@class="b-topnav__item single"][3]')
+    driver.find_element(By.XPATH, '//*[@data-id="3"]')
+    driver.find_element(By.XPATH, '//*[@data-id="2"]')
+    driver.find_element(By.XPATH, '//*[@data-id="1"]')
+    driver.find_element(By.XPATH, '//*[@href="https://rezka.ag/?filter=last"]')
+    driver.find_element(By.XPATH,
+                        '//*[@class="b-content__main_filters_item"][2]/*[@class="b-content__main_filters_link"]')
+    driver.find_element(By.XPATH,
+                        '//*[@class="b-content__main_filters_item"][3]/*[@class="b-content__main_filters_link"]')
+    driver.find_element(By.XPATH,
+                        '//*[@class="b-content__main_filters_item"][4]/*[@class="b-content__main_filters_link"]')
+    driver.find_element(By.XPATH, '//*[@class="b-content__filters_types"]')
+    driver.find_element(By.XPATH, '//*[@class="b-content__filters_types"]/a[4]')
+    driver.find_element(By.XPATH, '//*[@class="filter-link"][1]')
+    driver.find_element(By.XPATH, '//*[@class="filter-link"][2]')
+    driver.find_element(By.XPATH, '//*[@class="filter-link"][3]')
+    driver.find_element(By.XPATH, '//*[@href="/animation/mahoushoujo/"]')
+    driver.find_element(By.XPATH, '//*[@href="/series/ukrainian/"]')
+    driver.find_element(By.XPATH, '//*[@href="/films/horror/"]')
+
+    driver.find_element(By.CSS_SELECTOR, '#top-head')
+    driver.find_element(By.CSS_SELECTOR, '.glory > img')
+    driver.find_element(By.CSS_SELECTOR, '[href="https://rezka.ag/?filter=last"]')
+    driver.find_element(By.CSS_SELECTOR, '.b-content__main_filters_item:nth-child(2) > .b-content__main_filters_link')
+    driver.find_element(By.CSS_SELECTOR, '.b-content__main_filters_item:nth-child(3) > .b-content__main_filters_link')
+    driver.find_element(By.CSS_SELECTOR, '.b-content__filters_types > a:nth-child(1)')
+    driver.find_element(By.CSS_SELECTOR, '.b-content__filters_types')
+    driver.find_element(By.CSS_SELECTOR, '[href="/films/horror/"]')
+    driver.find_element(By.CSS_SELECTOR, '.b-content__filters_types > a:nth-child(4)')
+    driver.find_element(By.CSS_SELECTOR, '.filter-link:nth-child(1)')
