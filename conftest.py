@@ -1,4 +1,3 @@
-import faker
 import pytest
 
 from HomeWork15.page_objects.bookmarks_pack.bookmarks_page import BookmarksPage
@@ -6,7 +5,7 @@ from HomeWork15.page_objects.login_page_pack.login_page import LoginPage
 from HomeWork15.page_objects.main_page_pack.main_page import MainPage
 from HomeWork15.page_objects.serial_page_pack.serial_page import SerialPage
 from HomeWork15.page_objects.settings_page_pack.settings_page import SettingsPage
-from HomeWork15.utilities.config_reader import AppConfig
+from HomeWork15.utilities.config_reader import AppConfigJson
 from HomeWork15.utilities.driver_factory import DriverFactory
 from faker import Faker
 import random
@@ -14,50 +13,50 @@ import random
 
 @pytest.fixture
 def create_driver():
-    driver = DriverFactory(AppConfig.browser_id).get_driver()
+    driver = DriverFactory(AppConfigJson.browser_id).get_driver()
     driver.maximize_window()
-    driver.get(AppConfig.url)
+    driver.get(AppConfigJson.url)
     yield driver
     driver.quit()
 
 
 @pytest.fixture
 def create_serial_driver():
-    driver = DriverFactory(AppConfig.browser_id).get_driver()
+    driver = DriverFactory(AppConfigJson.browser_id).get_driver()
     driver.maximize_window()
-    driver.get(AppConfig.serial)
+    driver.get(AppConfigJson.serial)
     yield driver
     driver.quit()
 
 
 @pytest.fixture
 def get_user():
-    return AppConfig.login, AppConfig.password
+    return AppConfigJson.login, AppConfigJson.password
 
 
 @pytest.fixture
 def get_email():
-    return AppConfig.email
+    return AppConfigJson.email
 
 
 @pytest.fixture
 def get_test_email():
-    return AppConfig.test_email
+    return AppConfigJson.test_email
 
 
 @pytest.fixture
 def get_password():
-    return AppConfig.password
+    return AppConfigJson.password
 
 
 @pytest.fixture
 def get_test_password():
-    return AppConfig.bad_password
+    return AppConfigJson.bad_password
 
 
 @pytest.fixture
 def get_wrong_user():
-    return AppConfig.login, AppConfig.bad_password
+    return AppConfigJson.login, AppConfigJson.bad_password
 
 
 @pytest.fixture
@@ -77,7 +76,7 @@ def open_main_page(create_driver):
 
 @pytest.fixture
 def get_film():
-    films_list = AppConfig.cinema_list
+    films_list = AppConfigJson.cinema
     random_film = random.choice(films_list)
     return random_film
 
