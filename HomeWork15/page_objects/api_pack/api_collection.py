@@ -29,11 +29,9 @@ class UsersApi(BaseApi):
     def put_user(self, user_id, payloads, headers):
         return self._put(f'{self.__url}/{user_id}', payloads=json.dumps(payloads), headers=headers)
 
-
     def too_many_requests(self, headers):
         resp = self._get(self.__url, headers=headers)
         while resp.status_code == 200:
             resp = self._get(self.__url, headers=headers)
             if resp.status_code == 429:
                 return resp
-
