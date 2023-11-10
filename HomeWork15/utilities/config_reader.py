@@ -33,3 +33,5 @@ class AppConfigJson:
     serial = config_data['app_data']['serial_url']
     email = config_data['user_data']['mail']
     test_email = config_data['user_data']['test_mail']
+    api_url = config_data['api_data']['base_url']
+    api_token = config_data['api_data']['access_token']
