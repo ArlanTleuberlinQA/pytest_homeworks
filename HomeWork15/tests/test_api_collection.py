@@ -63,7 +63,7 @@ def test_bad_request(set_up, get_random_user, get_fake_user_payload, get_headers
 def test_too_many_requests(set_up, get_headers):
     api = set_up
     resp = api.too_many_requests(get_headers)
-    assert resp.status_code == 429
+    assert resp.status_code == HTTPStatus.TOO_MANY_REQUESTS
 
 
 def test_not_posted(set_up, get_headers, random_change):
