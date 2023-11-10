@@ -1,5 +1,9 @@
-import pytest
+import json
 
+import pytest
+import requests
+
+from HomeWork15.page_objects.api_pack.api_collection import UsersApi
 from HomeWork15.page_objects.bookmarks_pack.bookmarks_page import BookmarksPage
 from HomeWork15.page_objects.login_page_pack.login_page import LoginPage
 from HomeWork15.page_objects.main_page_pack.main_page import MainPage
@@ -110,3 +114,54 @@ def get_name_payer():
     fake = Faker()
     name = fake.name()
     return name
+
+
+@pytest.fixture
+def get_headers():
+    headers = ({
+        "Authorization": f"Bearer {AppConfigJson.api_token}",
+        "Content-Type": "application/json"
+    })
+    return headers
+
+
+@pytest.fixture
+def get_base_url():
+    base_url = AppConfigJson.api_url
+    return base_url
+
+
+@pytest.fixture
+def set_up(get_base_url):
+    api = UsersApi(get_base_url)
+    return api
+
+
+@pytest.fixture()
+def get_fake_user_payload():
+    fake = Faker()
+    return {
+        "name": fake.name(),
+        "email": fake.email(),
+        "gender": random.choice(["male", "female"]),
+        "status": random.choice(["active", "inactive"])
+    }
+
+
+@pytest.fixture()
+def random_change():
+    fake = Faker()
+    return {
+        "name": fake.name(),
+        "email": fake.email(),
+    }
+
+
+@pytest.fixture
+def get_random_user(set_up, get_headers):
+    api = set_up
+    response = api.get_all_users(get_headers)
+    users = response.json()
+    random_user = random.choice(users)
+    random_user_id = random_user.get('id')
+    return random_user_id
