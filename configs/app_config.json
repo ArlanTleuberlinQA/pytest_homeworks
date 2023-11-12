@@ -132,5 +132,8 @@
    "api_data": {
     "base_url": "https://gorest.co.in/public/v2",
     "access_token": "26098e1812ebcc98050a440bf1b3b6013c66c87c9a3822c037575c3be45e7e06"
-    }
+    },
+    "db_param": {
+    "path": "/db/test.db"
+  }
 }

@@ -1,8 +1,8 @@
 import json
 
 import pytest
-import requests
 
+from constants import ROOT_PATH
 from HomeWork15.page_objects.api_pack.api_collection import UsersApi
 from HomeWork15.page_objects.bookmarks_pack.bookmarks_page import BookmarksPage
 from HomeWork15.page_objects.login_page_pack.login_page import LoginPage
@@ -13,6 +13,13 @@ from HomeWork15.utilities.config_reader import AppConfigJson
 from HomeWork15.utilities.driver_factory import DriverFactory
 from faker import Faker
 import random
+
+from HomeWork15.utilities.json_to_dict import DictToClass
+from db.sqlite_pack.products_repo import ProductsRepo
+
+
+def pytest_addoption(parser):
+    parser.addoption('--env', action='store', default='app_config', help='Choose your env')
 
 
 @pytest.fixture
@@ -165,3 +172,37 @@ def get_random_user(set_up, get_headers):
     random_user = random.choice(users)
     random_user_id = random_user.get('id')
     return random_user_id
+
+
+@pytest.fixture(scope='session')
+def env(request):
+    _env_name = request.config.getoption('--env')
+    with open(f'{ROOT_PATH}/configs/{_env_name}.json') as f:
+        conf_dict = json.loads(f.read())
+        return DictToClass(**conf_dict)
+
+
+@pytest.fixture(scope='module')
+def product_repo(env):
+    return ProductsRepo(f"{ROOT_PATH}{env.db_param['path']}")
+
+
+@pytest.fixture
+def get_random_item():
+    fake = Faker()
+    return {
+        "item_id": random.randint(1, 10000),
+        "name": random.choice(
+            ["Indesit", "Ariston", "Electrolux", "Samsung", "LG", "Toshiba", "Bosch", "Zanussi", "Whirpool"]),
+        "category": random.choice(["Steamer", "Slow cooker", "Washing Machine", "Dishwashing", "Refregerator",
+                                   "Vacuum cleaner", "Air conditioning", "Heater", "Humidifier", "Oven", "Hob"]),
+        "price": float(fake.pyint(10, 6000)),
+        "stock_quantity": random.randint(1, 100)}
+@pytest.fixture
+def get_random_item_id(product_repo):
+    db = product_repo
+    tab = db.get_all()
+    random_item = random.choice(tab)
+    random_user_id = random_item[0]
+    return random_user_id
+
