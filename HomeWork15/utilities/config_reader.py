@@ -1,6 +1,6 @@
 import configparser
 import json
-from HomeWork15.constants import ROOT_PATH
+from constants import ROOT_PATH
 
 _abs_path = f'{ROOT_PATH}/configs/app_config.ini'
 _config = configparser.RawConfigParser()

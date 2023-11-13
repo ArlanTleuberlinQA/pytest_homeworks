@@ -1,12 +1,25 @@
 from http import HTTPStatus
+import allure
 
 
+@allure.story("Test getting all users")
+@allure.title("Verify fetching all users")
+@allure.description("This test verifies the ability to fetch all users from the API.")
+@allure.tag("API", "Users")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("test-type", "functional")
 def test_get_users(set_up, get_headers):
     api = set_up
     response = api.get_all_users(get_headers)
     assert response.status_code == HTTPStatus.OK
 
 
+@allure.story("Test getting a single user")
+@allure.title("Verify fetching a single user")
+@allure.description("This test verifies the ability to fetch a single user from the API.")
+@allure.tag("API", "User", "Fetch")
+@allure.severity(allure.severity_level.CRITICAL)
+@allure.label("test-type", "functional")
 def test_get_user(set_up, get_headers, get_random_user):
     api = set_up
     user_id = get_random_user
@@ -16,6 +29,12 @@ def test_get_user(set_up, get_headers, get_random_user):
     assert data['id'] == user_id
 
 
+@allure.story("Test creating a new user")
+@allure.title("Verify creating a new user")
+@allure.description("This test verifies the ability to create a new user through the API.")
+@allure.tag("API", "Users")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("test-type", "functional")
 def test_post_new_user(set_up, get_fake_user_payload, get_headers):
     api = set_up
     payload = get_fake_user_payload
@@ -25,6 +44,12 @@ def test_post_new_user(set_up, get_fake_user_payload, get_headers):
     assert data['name'] == payload['name']
 
 
+@allure.story("Test updating a user")
+@allure.title("Verify updating a user")
+@allure.description("This test verifies the ability to update a user's information through the API.")
+@allure.tag("API", "Users")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("test-type", "functional")
 def test_update_user(set_up, get_random_user, random_change, get_headers):
     api = set_up
     payload = random_change
@@ -34,6 +59,12 @@ def test_update_user(set_up, get_random_user, random_change, get_headers):
     assert data['name'] == payload['name']
 
 
+@allure.story("Test deleting a user")
+@allure.title("Verify deleting a user")
+@allure.description("This test verifies the ability to delete a user through the API.")
+@allure.tag("API", "Users")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("test-type", "functional")
 def test_delete_user(set_up, get_random_user, get_headers):
     api = set_up
     resp = api.delete_user(get_random_user, get_headers)
@@ -46,6 +77,12 @@ def test_put_user(set_up, get_random_user, get_fake_user_payload, get_headers):
     assert resp.status_code == HTTPStatus.OK
 
 
+@allure.story("Test replacing a user")
+@allure.title("Verify replacing a user")
+@allure.description("This test verifies the ability to replace a user's information through the API.")
+@allure.tag("API", "Users")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("test-type", "functional")
 def test_not_found(set_up, get_headers):
     api = set_up
     user_id = 0
@@ -53,6 +90,12 @@ def test_not_found(set_up, get_headers):
     assert response.status_code == HTTPStatus.NOT_FOUND
 
 
+@allure.story("Test making a bad request")
+@allure.title("Verify making a bad request")
+@allure.description("This test verifies the API's response when making a bad request.")
+@allure.tag("API", "Users")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("test-type", "functional")
 def test_bad_request(set_up, get_random_user, get_fake_user_payload, get_headers):
     api = set_up
     payloads = get_fake_user_payload
@@ -66,6 +109,12 @@ def test_too_many_requests(set_up, get_headers):
     assert resp.status_code == HTTPStatus.TOO_MANY_REQUESTS
 
 
+@allure.story("Test unprocessable entity response")
+@allure.title("Verify unprocessable entity response")
+@allure.description("This test verifies the API's response when attempting to create a user with invalid data.")
+@allure.tag("API", "Users")
+@allure.severity(allure.severity_level.NORMAL)
+@allure.label("test-type", "functional")
 def test_not_posted(set_up, get_headers, random_change):
     api = set_up
     resp = api.post_new_user(random_change, get_headers)
