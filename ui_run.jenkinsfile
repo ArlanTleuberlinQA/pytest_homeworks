@@ -1,0 +1,42 @@
+pipeline {
+    agent any
+    stages {
+        stage('Setup req') {
+            steps {
+                sh '''#!/bin/bash
+                apt-get update
+                apt-get install -y python3
+                apt-get install -y python3-pip
+                apt install -y python3.11-venv
+                python3 -m venv venv
+                source venv/bin/activate
+                python3 -m pip install -r requirements.txt
+                python3 -m pip install allure-pytest
+                '''
+            }
+        }
+        }
+        stage('Run api') {
+            steps {
+                sh '''#!/bin/bash
+                source venv/bin/activate
+                python3 -m pytest HomeWork15/tests/test_api_collection.py
+                '''
+            }
+        }
+        stage('Run ui') {
+            steps {
+                sh '''#!/bin/bash
+                source venv/bin/activate
+                python3 -m pytest --hub True --headless True HomeWork15/tests/test_main_page.py
+                python3 -m pytest --hub True --headless True HomeWork15/tests/test_settings_page.py
+                '''
+            }
+        }
+        stage('Report') {
+            steps {
+                allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
+            }
+        }
+    }
+}
