@@ -14,8 +14,7 @@ pipeline {
                 python3 -m pip install allure-pytest
                 '''
             }
-        }
-        }
+        } // Виправте тут
         stage('Run api') {
             steps {
                 sh '''#!/bin/bash
