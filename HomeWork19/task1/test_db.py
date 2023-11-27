@@ -1,3 +1,7 @@
+import pytest
+
+
+@pytest.mark.not_ui
 def test_add_product(product_repo, get_random_item):
     db = product_repo
     db.insert_one(**get_random_item)
@@ -5,12 +9,14 @@ def test_add_product(product_repo, get_random_item):
     assert prd == tuple(get_random_item.values())
 
 
+@pytest.mark.not_ui
 def test_get_all_employee(product_repo):
     db = product_repo
     all_prd = db.get_all()
     assert isinstance(all_prd, list)
 
 
+@pytest.mark.not_ui
 def test_select_product(product_repo, get_random_item_id):
     db = product_repo
     prod_id = get_random_item_id
@@ -18,6 +24,7 @@ def test_select_product(product_repo, get_random_item_id):
     assert product[0] == prod_id
 
 
+@pytest.mark.not_ui
 def test_delete_product(get_random_item_id, product_repo):
     db = product_repo
     tab_before = len(db.get_all())
@@ -27,6 +34,7 @@ def test_delete_product(get_random_item_id, product_repo):
     assert tab_after == tab_before - 1
 
 
+@pytest.mark.not_ui
 def test_update_product(product_repo, get_random_item_id, get_random_item):
     db = product_repo
     item_id = get_random_item_id
@@ -36,12 +44,14 @@ def test_update_product(product_repo, get_random_item_id, get_random_item):
     assert prd[1:] == tuple(dict(rest_of_values).values())
 
 
+@pytest.mark.not_ui
 def test_select_void_product(product_repo):
     db = product_repo
     void_product = db.get_one_by_id(0)
     assert void_product is None
 
 
+@pytest.mark.not_ui
 def test_delete_void_product(product_repo):
     db = product_repo
     tab_before = len(db.get_all())

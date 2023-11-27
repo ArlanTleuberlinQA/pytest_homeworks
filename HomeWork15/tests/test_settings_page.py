@@ -2,6 +2,7 @@ import allure
 import pytest
 
 
+@pytest.mark.ui
 @allure.story("Test changing gender")
 @allure.title("Verify gender change")
 @allure.description("This test verifies the ability to change gender in the settings.")
@@ -16,6 +17,7 @@ def test_change_gender(open_settings_page):
     assert set_page.is_female_gender_displayed(), "Gender doesn't changed"
 
 
+@pytest.mark.ui
 @allure.story("Test changing email")
 @allure.title("Verify email change")
 @allure.description("This test verifies the ability to change email in the settings.")
@@ -29,6 +31,7 @@ def test_change_email(open_settings_page, get_email, get_test_email):
     set_page.change_email_to_default(get_email)
 
 
+@pytest.mark.ui
 @allure.story("Test changing password")
 @allure.title("Verify password change")
 @allure.description("This test verifies the ability to change password in the settings.")
@@ -44,6 +47,7 @@ def test_change_password(open_settings_page, open_login_page, get_wrong_user, ge
     s_page.backup_password(get_password, get_test_password)
 
 
+@pytest.mark.ui
 @pytest.mark.smoke_cases
 def test_payment(open_settings_page, get_name_payer):
     s_page = open_settings_page
@@ -51,6 +55,7 @@ def test_payment(open_settings_page, get_name_payer):
     assert s_page.is_pay_success()
 
 
+@pytest.mark.ui
 @allure.story("Test payment history")
 @allure.title("Verify last payment in history")
 @allure.description("This test verifies the last payment in the payment history in the settings.")

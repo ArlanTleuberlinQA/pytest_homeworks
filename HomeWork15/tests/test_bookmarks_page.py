@@ -2,6 +2,7 @@ import pytest
 import allure
 
 
+@pytest.mark.ui
 @allure.story("Test creating a folder")
 @allure.title("Verify creating a folder")
 @allure.description("This test verifies the ability to create a new folder in the bookmarks.")
@@ -14,6 +15,7 @@ def test_create_folder(open_bookmarks_page, get_random_folder_name):
     assert b_page.is_new_folder_added(get_random_folder_name), "Folder doesn't created"
 
 
+@pytest.mark.ui
 @allure.story("Test deleting a folder")
 @allure.title("Verify deleting a folder")
 @allure.description("This test verifies the ability to delete a folder in the bookmarks.")
@@ -28,6 +30,7 @@ def test_delete_folder(open_bookmarks_page, get_default_folder_name):
     b_page.create_new_folder(get_default_folder_name)
 
 
+@pytest.mark.ui
 @allure.story("Test renaming a folder")
 @allure.title("Verify renaming a folder")
 @allure.description("This test verifies the ability to rename a folder in the bookmarks.")
@@ -41,6 +44,7 @@ def test_rename_folder(open_bookmarks_page, get_default_folder_name):
     b_page.rename_folder(new_name, get_default_folder_name)
 
 
+@pytest.mark.ui
 @allure.story("Test adding a film to a folder")
 @allure.title("Verify adding a film to a folder")
 @allure.description("This test verifies the ability to add a film to a folder in the bookmarks.")
@@ -57,6 +61,7 @@ def test_add_film(open_main_page, open_bookmarks_page, get_film, get_default_fol
     assert b_page.check_films_count_in_folder(get_default_folder_name) == films_before + 1, "Cinema doesn't added"
 
 
+@pytest.mark.ui
 @allure.story("Test changing a film's folder")
 @allure.title("Verify changing a film's folder")
 @allure.description("This test verifies the ability to change a film's folder in the bookmarks.")
