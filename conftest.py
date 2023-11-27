@@ -13,6 +13,7 @@ from HomeWork15.utilities.config_reader import AppConfigJson
 from HomeWork15.utilities.driver_factory import DriverFactory
 from faker import Faker
 import random
+import allure
 
 from HomeWork15.utilities.json_to_dict import DictToClass
 from db.sqlite_pack.products_repo import ProductsRepo
@@ -20,13 +21,27 @@ from db.sqlite_pack.products_repo import ProductsRepo
 
 def pytest_addoption(parser):
     parser.addoption('--env', action='store', default='app_config', help='Choose your env')
+    parser.addoption('--hub', action='store', default='false', help='Run test in container Selenoid')
+    parser.addoption('--headless', action='store', default='False', help='Run test in headless mode')
+
+
+@pytest.fixture(scope='session')
+def env(request):
+    _env_name = request.config.getoption('--env')
+    with open(f'{ROOT_PATH}/configs/{_env_name}.json') as f:
+        conf_dict = json.loads(f.read())
+        return DictToClass(**conf_dict)
 
 
 @pytest.fixture
-def create_driver():
-    driver = DriverFactory(AppConfigJson.browser_id).get_driver()
+def create_driver(env, request):
+    driver = DriverFactory(
+        browser_id=env.browser_data.get('browse_id', ''),
+        hub=eval(request.config.getoption('--hub')),
+        headless=eval(request.config.getoption('--headless'))
+    ).get_driver()
     driver.maximize_window()
-    driver.get(AppConfigJson.url)
+    driver.get(env.app_data.get('url', ''))
     yield driver
     driver.quit()
 
@@ -174,14 +189,6 @@ def get_random_user(set_up, get_headers):
     return random_user_id
 
 
-@pytest.fixture(scope='session')
-def env(request):
-    _env_name = request.config.getoption('--env')
-    with open(f'{ROOT_PATH}/configs/{_env_name}.json') as f:
-        conf_dict = json.loads(f.read())
-        return DictToClass(**conf_dict)
-
-
 @pytest.fixture(scope='module')
 def product_repo(env):
     return ProductsRepo(f"{ROOT_PATH}{env.db_param['path']}")
@@ -198,6 +205,8 @@ def get_random_item():
                                    "Vacuum cleaner", "Air conditioning", "Heater", "Humidifier", "Oven", "Hob"]),
         "price": float(fake.pyint(10, 6000)),
         "stock_quantity": random.randint(1, 100)}
+
+
 @pytest.fixture
 def get_random_item_id(product_repo):
     db = product_repo
@@ -205,4 +214,3 @@ def get_random_item_id(product_repo):
     random_item = random.choice(tab)
     random_user_id = random_item[0]
     return random_user_id
-
