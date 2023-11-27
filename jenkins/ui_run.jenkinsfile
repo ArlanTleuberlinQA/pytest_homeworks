@@ -37,7 +37,7 @@ pipeline {
                     steps {
                         sh '''#!/bin/bash
                         source venv/bin/activate
-                        python3 -m pytest --hub True --headless True HomeWork15/tests/test_settings_page.py
+                        python3 -m pytest --hub True --headless True HomeWork15/tests/test_bookmarks_page.py
                         '''
                     }
                 }
