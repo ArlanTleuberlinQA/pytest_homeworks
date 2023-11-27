@@ -4,4 +4,4 @@ Faker~=19.10.0
 requests~=2.31.0
 jsonschema~=4.19.2
 allure-pytest==2.13.2
-allure-python-commons==2.13.
+allure-python-commons==2.13.2
