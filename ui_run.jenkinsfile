@@ -15,7 +15,7 @@ pipeline {
                 '''
             }
         }
-        stage {
+        stage('Run Tests') {
             parallel {
                 stage('Run api') {
                     steps {
@@ -42,6 +42,7 @@ pipeline {
                     }
                 }
             }
+        }
         stage('Report') {
             steps {
                 allure includeProperties: false, jdk: '', results: [[path: 'allure-results']]
