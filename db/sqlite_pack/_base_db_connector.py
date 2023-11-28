@@ -1,9 +1,6 @@
 import sqlite3
 
-from singleton import singleton
 
-
-#@singleton
 class BaseDbConnection:
     def __init__(self, db_params):
         self.__path = db_params
