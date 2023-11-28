@@ -20,7 +20,6 @@ class MainPage:
         return self._page.is_displayed(self._main_locators.loc_white_theme)
 
     def search_cinema(self, cinema):
-        self._page.click(self._main_locators.loc_search_field)
         self._page.send_keys(self._main_locators.loc_search_field, value=cinema)
         return self._page.tap_enter(self._main_locators.loc_search_field)
 
